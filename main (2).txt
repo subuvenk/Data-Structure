@@ -1,0 +1,64 @@
+//insertion sort using link list
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int d;
+    struct node *l1,*l2;
+};
+struct node * insert ()
+{ int no;
+ struct node *head,*t,*ty;
+ head=(struct node *)malloc(sizeof(struct node));
+ head->l1=NULL;
+ head->l2= NULL;
+ t=head;ty=t;
+ printf("Enter\n");
+ while(1)
+ {
+     scanf("%d", &no);
+     if(no==-999)
+     {
+         t->l2=NULL;
+         free(ty);break;
+
+     }
+     else{
+         t=ty;
+          t->d= no;
+     ty=(struct node *)malloc(sizeof(struct node));
+     ty->l1=t;t->l2=ty;
+     ty->l2= NULL;
+
+     }
+
+ }
+ return (head);
+}
+void print(struct node *ir)
+{
+    while(ir != NULL)
+    {
+        printf("%d\t", ir->d);
+        ir=ir->l2;
+    }
+}
+int main()
+{
+struct node *head,*t,*ty,*h;
+int v;
+head=insert();
+for(t=head->l2;t!= NULL;t=t->l2)
+{
+    h=t;
+    v=t->d;
+    while(h != head && h->l1->d >v )
+    {
+        h->d=h->l1->d;
+        h=h->l1;
+    }
+    h->d=v;
+}
+    print(head);
+    return 0;
+}

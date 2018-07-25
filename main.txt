@@ -1,0 +1,77 @@
+//finding 2nd minimum
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int d;
+    struct node *l;
+    struct node *r;
+}*root,*t;
+struct node * getnode(int da)
+ {
+    t=(struct node *)malloc(sizeof(struct node));
+    t->l= NULL;
+    t->r= NULL;
+    t->d= da;
+    return(t);
+ }
+  struct node* insert(struct node* ir, int data)
+ {
+     if(ir == NULL)
+     {
+         ir=getnode(data);
+              }
+     else if(data <= ir->d)
+     {
+         ir->l= insert(ir->l, data);
+     }
+     else
+     {
+
+         ir->r= insert(ir->r, data);
+              }
+              return ir;
+
+ }
+
+int main()
+{   int l,i,a[50],e;
+struct node *temp;
+  root= NULL;
+    printf("\n Enter the limit\n");
+    scanf("%d", &l);
+    for(i=0;i<l;i++)
+    { scanf("%d", &a[i]);
+       root= insert(root,a[i]);
+
+    }
+
+    printf("Finding 2nd min\n");
+    if(root->l== NULL && root->r->l == NULL)
+    {
+        printf("%d\n", root->r->d);
+        return 0;
+    }
+    else if(root->l== NULL )
+    {
+        temp= root->r;
+        while(temp->l  != NULL)
+    {
+        temp=temp->l;
+    }
+    printf("\n the value found is :%d", temp->d);
+    return 0;
+    }
+    else
+    {
+    temp=root;
+
+    while(temp->l ->l != NULL)
+    {
+        temp=temp->l;
+    }
+    printf("\n the value found is :%d", temp->d);
+    return 0;
+    }
+     return 0;
+}

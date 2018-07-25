@@ -1,0 +1,78 @@
+//priority queue deletion
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int d,p;
+    struct node *l1,*l2;
+};
+struct node * insert ()
+{ int no;
+ struct node *head,*t,*ty;
+ head=(struct node *)malloc(sizeof(struct node));
+ head->l1=NULL;
+ head->l2= NULL;
+ t=head;ty=t;
+ printf("Enter\n");
+ while(1)
+ {
+     scanf("%d", &no);
+
+     if(no==-999)
+     {
+         t->l2=NULL;
+         free(ty);break;
+
+     }
+     else{
+         t=ty;
+          t->d= no;
+          scanf("%d", &t->p);
+     ty=(struct node *)malloc(sizeof(struct node));
+     ty->l1=t;t->l2=ty;
+     ty->l2= NULL;
+
+     }
+
+ }
+ return (head);
+}
+void print(struct node *ir)
+{
+    while(ir != NULL)
+    {
+        printf("%d\t", ir->d);
+        ir=ir->l2;
+    }
+}
+int main()
+{
+   struct node *head, *temp,*var;
+   int j,k;
+   head= insert();
+    j=head->p;
+   var= head;
+ for(temp= head; temp!= NULL;temp=temp->l2)
+ {
+    if(temp->p <j) {
+    j=temp->p;
+    var=temp;
+    }
+
+ }
+ if(var== head)
+ {
+     head=head->l2;
+ }
+ else if(var->l2== NULL)
+ {
+ var->l1->l2= NULL;
+ }
+ else {
+ var->l1->l2=var->l2;
+ var->l2->l1=var->l1;
+ }
+ print(head);
+
+  return 0;
+}
